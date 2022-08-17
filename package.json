@@ -1,0 +1,22 @@
+{
+  "name": "nodejsecommerceproject",
+  "version": "1.0.0",
+  "description": "This project Handle Front-end and Back-end for E-Commerce Web Applications and Create All API's",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "yes"
+  },
+  "author": "shubham kumar jaiswal",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongoose": "^6.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
