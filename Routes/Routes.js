@@ -1,7 +1,8 @@
 const express = require('express');
 const router  = express.Router();
-//include models file
+//include models from  models file
 const AdminUserModel  = require('../Models/UserModels.js');
+const UserModel       = require('../Models/UserModels.js');
 
 //####################  define all Routes here #########################//
 
@@ -26,7 +27,7 @@ router.get("/contact", (req, res) => {
 });
 
 //define the user routes
-router.post("/userregistration", async(req, res) => {
+router.post("/adminuserregistration", async(req, res) => {
     //console.log(req.body);
     //res.send(req.body);
     const adminuserdata = new AdminUserModel({
@@ -38,6 +39,28 @@ router.post("/userregistration", async(req, res) => {
     //console.log(adminuserdata);
     try {
         const dataToSave = await adminuserdata.save();
+        res.status(200);
+        //res.json(dataToSave);
+        res.json({ message: "data save successfully" });
+    } catch (error) {
+        res.status(400);
+        res.json({ message: error.message });
+    }
+});
+
+//define the user routes
+router.post("/userregistration", async(req, res) => {
+    //console.log(req.body);
+    //res.send(req.body);
+    const userdata = new UserModel({
+        name: req.body.name,
+        email: req.body.email,
+        number:req.body.number,
+        password:req.body.password
+    });
+    //console.log(adminuserdata);
+    try {
+        const dataToSave = await userdata.save();
         res.status(200);
         //res.json(dataToSave);
         res.json({ message: "data save successfully" });
