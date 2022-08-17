@@ -26,13 +26,26 @@ router.get("/contact", (req, res) => {
 });
 
 //define the user routes
-router.post("/userregistration", (req, res) => {
-    //res.send("userregistration");
-    console.log(req.body);
-    res.send(req.body);
+router.post("/userregistration", async(req, res) => {
+    //console.log(req.body);
+    //res.send(req.body);
+    const adminuserdata = new AdminUserModel({
+        name: req.body.name,
+        email: req.body.email,
+        number:req.body.number,
+        password:req.body.password
+    });
+    //console.log(adminuserdata);
+    try {
+        const dataToSave = await adminuserdata.save();
+        res.status(200);
+        //res.json(dataToSave);
+        res.json({ message: "data save successfully" });
+    } catch (error) {
+        res.status(400);
+        res.json({ message: error.message });
+    }
 });
-
-
 
 //export router
 module.exports = router;
