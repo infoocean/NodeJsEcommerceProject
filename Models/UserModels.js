@@ -23,12 +23,12 @@ const AdminUserSchema = new Schema({
 const AdminUserModel = mongoose.model("adminusers", AdminUserSchema);
 module.exports = AdminUserModel;
 
-//user schema
-const UserSchema = new Schema({
-  name: String,
-  email: String,
-  number: Number,
-  password: String,
-});
-const UserModel = mongoose.model("users", UserSchema);
-module.exports = UserModel;
+// //user schema
+// const UserSchema = new Schema({
+//   name: String,
+//   email: String,
+//   number: Number,
+//   password: String,
+// });
+// const UserModel = mongoose.model("users", UserSchema);
+// module.exports = UserModel;
