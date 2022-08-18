@@ -3,8 +3,8 @@ const app = express();
 app.use(express.json());
 
 //server info...
-const hostname = '127.0.3.1';
-const port     = 8000;
+const hostname = '127.0.0.1';
+const port     = 5000;
 
 
 //include database connection file
@@ -15,9 +15,7 @@ Createdbconnection();
 //include routes file
 const router = require('./Routes/Routes.js');
 app.use('/api', router);
-app.get('/',(req,res)=>{
-    res.send('workimg  fine......')
-})
+
 
 //create server and start
 app.listen(port, hostname, () => {
