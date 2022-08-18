@@ -14,7 +14,7 @@ Createdbconnection();
 
 //include routes file
 const router = require('./Routes/Routes.js');
-app.use('/api', router);
+app.use('/', router);
 
 
 //create server and start
