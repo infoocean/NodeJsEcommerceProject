@@ -6,7 +6,6 @@ const {
   adminuserlogin,
   getadminuser,
 } = require("../Controllers/AdminUserController");
-
 // include user controoler
 const {
   userregistration,
