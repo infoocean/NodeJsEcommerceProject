@@ -16,7 +16,7 @@ Createdbconnection();
 const router = require('./Routes/Routes.js');
 app.use('/api', router);
 app.get('/',(req,res)=>{
-    res.send('workimg  fine')
+    res.send('workimg  fine......')
 })
 
 //create server and start
