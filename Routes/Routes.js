@@ -11,6 +11,7 @@ const {
   userregistration,
   userlogin,
   getuser,
+  getuserbyid,
 } = require("../Controllers/UserController");
 
 //include Premium user Controller
@@ -59,6 +60,8 @@ router.post("/userregistration", userregistration);
 router.post("/userlogin", userlogin);
 //get   user routes
 router.get("/getuser", getuser);
+//get   user by id  routes
+router.get("/getuserbyid/:id", getuserbyid);
 
 // ***************** define premium user routes *****************//
 //define the premium  user Registration routes

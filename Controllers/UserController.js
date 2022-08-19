@@ -20,15 +20,58 @@ const userregistration = async (req, res) => {
 };
 //login user controller
 const userlogin = (req, res) => {
-  console.log("getadminusercontroller");
+  console.log("loginuser");
 };
 //get  user controller
-const getuser = (req, res) => {
-  console.log("getadminusercontroller");
+const getuser = async (req, res) => {
+  //console.log("get admin user data");
+  try {
+    const usersdata = await UserModel.find();
+    if (usersdata != "") {
+      res.status(200);
+      res.send(usersdata);
+      //res.json(userdata);
+    } else {
+      res.status(204);
+      //res.status(500); 
+      res.send({ message: "data not found" });
+    }
+  } catch (err) {
+    res.status(400);
+    res.send(err);
+    //res.json(err);
+    //res.json({err:err.message});
+  }
 };
+
+//get  user controller
+const getuserbyid = async (req, res) => {
+  //console.log(req.params);
+  //console.log(req.params.id);
+  try {
+    const userdata = await UserModel.findById(req.params.id);
+    //console.log(userdata);
+    if (userdata != null) {
+      res.status(200);
+      res.send(userdata);
+      //res.json(userdata);
+    } else {
+      //res.status(204);
+      res.status(500);
+      res.send({ message: "data not found" });
+    }
+  } catch (err) {
+    res.status(500);
+    res.send(err);
+    //res.json(err);
+    //res.json({err:err.message});
+  }
+};
+
 //exports modules here
 module.exports = {
   userregistration,
   userlogin,
   getuser,
+  getuserbyid,
 };

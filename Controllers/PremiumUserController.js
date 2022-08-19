@@ -59,7 +59,8 @@ const getpremiumuserbyid = async (req, res) => {
       res.status(200);
       res.json(data);
     } else {
-      res.status(204);
+      res.status(204); // no content 
+      //res.status(500); // internal server error
       res.json({ message: "data not found" });
     }
   } catch (error) {
