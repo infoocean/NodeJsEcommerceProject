@@ -3,28 +3,21 @@ const AdminUserModel = require("../Models/Adminusermodel");
 
 //####################### define admin user controller(Module) here #######################//
 //admin user registration controller
-const adminuserregistration = async (req, res) => {
-  //console.log("adminuserregistration");
+const adminuserregistration = (req, res) => {
+  //console.log("admin user registration");
   //console.log(req.body);
   //res.send(req.body);
-  const adminuserdata = new AdminUserModel({
-    name: req.body.name,
-    email: req.body.email,
-    number: req.body.number,
-    password: req.body.password,
-  });
+  const adminuserdata = new AdminUserModel(req.body);
   //console.log(adminuserdata);
-  try {
-    const dataSave = await adminuserdata.save();
-    //console.log(dataSave);
-    //res.json(dataSave);
-    res.status(200);
+  //save data into db 
+  adminuserdata.save().then(()=>{
+    res.status(201);
     res.json({ message: "data save successfully" });
-  } catch (error) {
+  }).catch((error)=>{
     res.status(400);
     //res.json({ message: error });
     res.json({ message: error.message });
-  }
+  })
 };
 //admin user login controller
 const adminuserlogin = (req, res) => {
