@@ -5,6 +5,7 @@ const {
   adminuserregistration,
   adminuserlogin,
   getadminuser,
+  deletadminuserbyid,
 } = require("../Controllers/AdminUserController");
 // include user controoler
 const {
@@ -12,6 +13,7 @@ const {
   userlogin,
   getuser,
   getuserbyid,
+  deleteuserbyid,
 } = require("../Controllers/UserController");
 
 //include Premium user Controller
@@ -53,6 +55,8 @@ router.post("/adminuserregistration", adminuserregistration);
 router.post("/adminuserlogin", adminuserlogin);
 //get  admin user routes
 router.get("/getadminuser", getadminuser);
+router.delete("/deleteadminuserbyid/:admin_user_id", deletadminuserbyid);
+
 
 //define the  user Registration routes
 router.post("/userregistration", userregistration);
@@ -62,6 +66,8 @@ router.post("/userlogin", userlogin);
 router.get("/getuser", getuser);
 //get   user by id  routes
 router.get("/getuserbyid/:id", getuserbyid);
+//delete  user by id  routes
+router.delete("/deleteuserbyid/:id", deleteuserbyid);
 
 // ***************** define premium user routes *****************//
 //define the premium  user Registration routes

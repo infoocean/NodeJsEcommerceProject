@@ -59,7 +59,7 @@ const getpremiumuserbyid = async (req, res) => {
       res.status(200);
       res.json(data);
     } else {
-      res.status(204); // no content 
+      res.status(204); // no content
       //res.status(500); // internal server error
       res.json({ message: "data not found" });
     }
@@ -81,8 +81,20 @@ const deletepremiumuser = async (req, res) => {
 };
 
 //update premium  user by id  controller
-const updatepremiumuser = (req, res) => {
-  console.log("premiumuserregistration");
+const updatepremiumuser = async (req, res) => {
+  //console.log("updatepremiumuser");
+  try {
+    id = req.params.id;
+    data = req.body;
+    const updatedata = await PremiumUserModel.findOneAndUpdate(id, data, {
+      new: true,
+    });
+    //res.json(updatedata);
+    res.status(200).send({ message: "data updated successfully" });
+  } catch (err) {
+    res.status(404);
+    res.send(err);
+  }
 };
 
 //delete premium user by id controller
@@ -92,7 +104,7 @@ const deletepremiumuserbyid = async (req, res) => {
     const data = await PremiumUserModel.findByIdAndDelete(id);
     res.status(200).send({ message: `user  ${data.name} has been deleted..` });
   } catch (error) {
-    res.status(400).json({ message: error });
+    res.status(500).json({ message: error });
   }
 };
 

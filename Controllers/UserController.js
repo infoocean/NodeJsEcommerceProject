@@ -15,7 +15,7 @@ const userregistration = async (req, res) => {
     res.json({ message: "data save successfully" });
   } catch (error) {
     res.status(400);
-    res.json({ message: error });
+    res.json({ message: error.message });
   }
 };
 //login user controller
@@ -33,7 +33,7 @@ const getuser = async (req, res) => {
       //res.json(userdata);
     } else {
       res.status(204);
-      //res.status(500); 
+      //res.status(500);
       res.send({ message: "data not found" });
     }
   } catch (err) {
@@ -68,10 +68,42 @@ const getuserbyid = async (req, res) => {
   }
 };
 
+//delete user by id controller
+const deleteuserbyid = async (req, res) => {
+  const id = req.params.id;
+  //console.log(id);
+  try {
+    const deleteuserdata = await UserModel.findByIdAndDelete(id);
+    //console.log(deleteuserdata);
+    res
+      .status(200)
+      .send({ message: `user  ${deleteuserdata.name} has been deleted..` });
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+};
+
+//update user by id controller
+const updateuserbyid = async (req, res) => {
+  const id = req.params.id;
+  //console.log(id);
+  try {
+    const deleteuserdata = await UserModel.findByIdAndDelete(id);
+    //console.log(deleteuserdata);
+    res
+      .status(200)
+      .send({ message: `user  ${deleteuserdata.name} has been deleted..` });
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+};
+
 //exports modules here
 module.exports = {
   userregistration,
   userlogin,
   getuser,
   getuserbyid,
+  deleteuserbyid,
+  updateuserbyid,
 };
