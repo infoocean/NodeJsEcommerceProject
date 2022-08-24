@@ -14,6 +14,7 @@ const {
   getuser,
   getuserbyid,
   deleteuserbyid,
+  updateuserbyid,
 } = require("../Controllers/UserController");
 
 //include Premium user Controller
@@ -57,7 +58,6 @@ router.post("/adminuserlogin", adminuserlogin);
 router.get("/getadminuser", getadminuser);
 router.delete("/deleteadminuserbyid/:admin_user_id", deletadminuserbyid);
 
-
 //define the  user Registration routes
 router.post("/userregistration", userregistration);
 //define the  user ligin routes
@@ -68,6 +68,8 @@ router.get("/getuser", getuser);
 router.get("/getuserbyid/:id", getuserbyid);
 //delete  user by id  routes
 router.delete("/deleteuserbyid/:id", deleteuserbyid);
+//update  user by id  routes
+router.patch("/updateuser/:id", updateuserbyid);
 
 // ***************** define premium user routes *****************//
 //define the premium  user Registration routes

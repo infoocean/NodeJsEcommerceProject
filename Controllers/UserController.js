@@ -86,13 +86,15 @@ const deleteuserbyid = async (req, res) => {
 //update user by id controller
 const updateuserbyid = async (req, res) => {
   const id = req.params.id;
+  const updateddata = req.body;
   //console.log(id);
+ 
   try {
-    const deleteuserdata = await UserModel.findByIdAndDelete(id);
-    //console.log(deleteuserdata);
+    const updatedata = await UserModel.updateOne({_id:id}, updateddata);
+    //console.log(updatedata);
     res
       .status(200)
-      .send({ message: `user  ${deleteuserdata.name} has been deleted..` });
+      .send({ message : "user has been updated.." });
   } catch (error) {
     res.status(400).json({ message: error });
   }
