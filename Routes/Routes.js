@@ -1,5 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const app = express();
+
+// require model
+const olympicdata = require("../Models/OlympicModel");
+
 // include admin user  controller
 const {
   adminuserregistration,
@@ -28,6 +33,9 @@ const {
   getpremiumuserbyid,
 } = require("../Controllers/PremiumUserController");
 
+//olympic data controller
+const getolympicdatacontroller = require("../Controllers/Olympicdatacontroller");
+const updateolympicdatacontroller = require("../Controllers/Olympicdatacontroller");
 //####################  define all Routes here #########################//
 
 //define the Home page routes
@@ -86,6 +94,42 @@ router.delete("/premiumuser", deletepremiumuser);
 router.patch("/premiumuser/:id", updatepremiumuser);
 //delete Premium  user by id routes
 router.delete("/premiumuser/:id", deletepremiumuserbyid);
+
+//olympics data api
+router.post("/olympicdata", getolympicdatacontroller);
+router.get("/olympicdata", async (req, res) => {
+  //console.log("getdata");
+  try {
+    const data = await olympicdata.find();
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+router.get("/olympicdata/:id", async (req, res) => {
+  //console.log("getdata");
+  try {
+    _id = req.params.id;
+    const data = await olympicdata.findById(_id);
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+router.patch("/olympicdata/:id", updateolympicdatacontroller);
+router.delete("/olympicdata/:id", (req, res) => {
+  const _id = req.params.id;
+  olympicdata
+    .findByIdAndDelete({ _id: _id })
+    .then(() => {
+      res.status(200);
+      res.json({ message: "data deleted successfully" });
+    })
+    .catch((error) => {
+      res.status(500);
+      res.json(error);
+    });
+});
 
 //export router
 module.exports = router;
