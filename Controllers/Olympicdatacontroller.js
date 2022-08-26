@@ -1,8 +1,8 @@
 const olympicdata = require("../Models/OlympicModel");
 
-const getolympicdatacontroller = async (req, res) => {
+const addolympicdatacontroller = async (req, res) => {
   const data = req.body;
-  //console.log(data);
+  console.log(data);
   try {
     const savedata = new olympicdata(data);
     const save = await savedata.save();
@@ -14,8 +14,6 @@ const getolympicdatacontroller = async (req, res) => {
     res.send({ message: error.message });
   }
 };
-
-module.exports = getolympicdatacontroller;
 
 const updateolympicdatacontroller = async (req, res) => {
   const _id = req.params.id;
@@ -32,4 +30,4 @@ const updateolympicdatacontroller = async (req, res) => {
   }
 };
 
-module.exports = updateolympicdatacontroller;
+module.exports = { addolympicdatacontroller, updateolympicdatacontroller };

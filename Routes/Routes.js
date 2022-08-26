@@ -34,8 +34,11 @@ const {
 } = require("../Controllers/PremiumUserController");
 
 //olympic data controller
-const getolympicdatacontroller = require("../Controllers/Olympicdatacontroller");
-const updateolympicdatacontroller = require("../Controllers/Olympicdatacontroller");
+const {
+  addolympicdatacontroller,
+  updateolympicdatacontroller,
+} = require("../Controllers/Olympicdatacontroller");
+
 //####################  define all Routes here #########################//
 
 //define the Home page routes
@@ -96,11 +99,11 @@ router.patch("/premiumuser/:id", updatepremiumuser);
 router.delete("/premiumuser/:id", deletepremiumuserbyid);
 
 //olympics data api
-router.post("/olympicdata", getolympicdatacontroller);
+router.post("/olympicdata", addolympicdatacontroller);
 router.get("/olympicdata", async (req, res) => {
   //console.log("getdata");
   try {
-    const data = await olympicdata.find();
+    const data = await olympicdata.find().sort({ ranking: 1 });
     res.status(200).send(data);
   } catch (error) {
     res.status(400).send(error);
@@ -111,7 +114,11 @@ router.get("/olympicdata/:id", async (req, res) => {
   try {
     _id = req.params.id;
     const data = await olympicdata.findById(_id);
-    res.status(200).send(data);
+    if (data != null) {
+      res.status(200).send(data);
+    } else {
+      res.status(404).send({ message: "data not found" });
+    }
   } catch (error) {
     res.status(400).send(error);
   }
