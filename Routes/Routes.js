@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const app = express();
 
+//midddle weares
+const uploads = require("../Middlewares/uploadmulter");
+
 // require model
 const olympicdata = require("../Models/OlympicModel");
 
@@ -31,6 +34,7 @@ const {
   updatepremiumuser,
   deletepremiumuserbyid,
   getpremiumuserbyid,
+  getpremiumuserbymultipleid,
 } = require("../Controllers/PremiumUserController");
 
 //olympic data controller
@@ -70,7 +74,7 @@ router.get("/getadminuser", getadminuser);
 router.delete("/deleteadminuserbyid/:admin_user_id", deletadminuserbyid);
 
 //define the  user Registration routes
-router.post("/userregistration", userregistration);
+router.post("/userregistration", uploads.single("image"), userregistration);
 //define the  user ligin routes
 router.post("/userlogin", userlogin);
 //get   user routes
@@ -80,7 +84,7 @@ router.get("/getuserbyid/:id", getuserbyid);
 //delete  user by id  routes
 router.delete("/deleteuserbyid/:id", deleteuserbyid);
 //update  user by id  routes
-router.patch("/updateuser/:id", updateuserbyid);
+router.patch("/updateuser/:id", uploads.single("image"), updateuserbyid);
 
 // ***************** define premium user routes *****************//
 //define the premium  user Registration routes
@@ -97,6 +101,8 @@ router.delete("/premiumuser", deletepremiumuser);
 router.patch("/premiumuser/:id", updatepremiumuser);
 //delete Premium  user by id routes
 router.delete("/premiumuser/:id", deletepremiumuserbyid);
+//delete Premium  user by id routes
+router.get("/multiplepremiumuser/:id", getpremiumuserbymultipleid);
 
 //olympics data api
 router.post("/olympicdata", addolympicdatacontroller);

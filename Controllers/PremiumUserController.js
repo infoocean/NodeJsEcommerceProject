@@ -1,5 +1,4 @@
 const PremiumUserModel = require("../Models/PremiumuserModel");
-
 //####################### define premium user controller(Module) here #######################//
 //premium user registration controller
 const premiumuserregistration = async (req, res) => {
@@ -108,6 +107,28 @@ const deletepremiumuserbyid = async (req, res) => {
   }
 };
 
+//get premium user by multiple id controller
+const getpremiumuserbymultipleid = async (req, res) => {
+  //console.log(req.params.id);
+  //create array element
+  //const ids = new Array(req.params.id);
+  const mulid = req.params.id;
+  //console.log(mulid);
+  //console.log(typeof mulid);
+  // convert string to an array
+  var arrayid = mulid.split(",");
+  //console.log(arrayid);
+  try {
+    const getdata = await PremiumUserModel.find({ _id: { $in: arrayid } });
+    console.log(getdata);
+    res.status(200);
+    res.send(getdata);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
 //exports modules here
 module.exports = {
   premiumuserregistration,
@@ -117,4 +138,5 @@ module.exports = {
   updatepremiumuser,
   deletepremiumuserbyid,
   getpremiumuserbyid,
+  getpremiumuserbymultipleid,
 };

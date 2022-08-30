@@ -9,6 +9,7 @@ const userregistration = async (req, res) => {
       email: req.body.email,
       number: req.body.number,
       password: req.body.password,
+      image: req.file.filename,
     });
     const data = await userdata.save();
     res.status(201);
@@ -86,15 +87,23 @@ const deleteuserbyid = async (req, res) => {
 //update user by id controller
 const updateuserbyid = async (req, res) => {
   const id = req.params.id;
-  const updateddata = req.body;
-  //console.log(id);
- 
+  //console.log(req.body);
+  //console.log(req.file);
+  //console.log(req.body,req.file);
+  const updateddata = new UserModel({
+    name: req.body.name,
+    email: req.body.email,
+    number: req.body.number,
+    password: req.body.password,
+    image: req.file.filename,
+  });
+  //console.log(updateddata);
   try {
-    const updatedata = await UserModel.updateOne({_id:id}, updateddata);
-    //console.log(updatedata);
-    res
-      .status(200)
-      .send({ message : "user has been updated.." });
+    const updatedata = await UserModel.updateOne({ _id: id }, updateddata, {
+      new: true,
+    });
+    console.log(updatedata);
+    res.status(200).send({ message: "user has been updated.." });
   } catch (error) {
     res.status(400).json({ message: error });
   }
