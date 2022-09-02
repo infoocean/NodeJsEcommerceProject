@@ -4,12 +4,9 @@ var storage = multer.diskStorage({
     callback(null, "./uploads/");
   },
   filename: function (req, file, callback) {
-    callback(null, Date.now() + ".jpg"); //Appending .jpg
+    callback(null, file.originalname + Date.now() + ".jpg"); //Appending .jpg
   },
 });
 
 const uploads = multer({ storage: storage });
 module.exports = uploads;
-
-
-

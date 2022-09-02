@@ -74,7 +74,7 @@ router.get("/getadminuser", getadminuser);
 router.delete("/deleteadminuserbyid/:admin_user_id", deletadminuserbyid);
 
 //define the  user Registration routes
-router.post("/userregistration", uploads.single("image"), userregistration);
+router.post("/userregistration", uploads.single('image'), userregistration);
 //define the  user ligin routes
 router.post("/userlogin", userlogin);
 //get   user routes
@@ -84,7 +84,7 @@ router.get("/getuserbyid/:id", getuserbyid);
 //delete  user by id  routes
 router.delete("/deleteuserbyid/:id", deleteuserbyid);
 //update  user by id  routes
-router.patch("/updateuser/:id", uploads.single("image"), updateuserbyid);
+router.patch("/updateuser/:id", uploads.single('image'), updateuserbyid);
 
 // ***************** define premium user routes *****************//
 //define the premium  user Registration routes

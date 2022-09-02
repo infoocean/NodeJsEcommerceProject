@@ -3,7 +3,11 @@ const UserModel = require("../Models/UserModels");
 //####################### define user controller(Module) here #######################
 //user registration controller
 const userregistration = async (req, res) => {
+  console.log(req.body, req.file);
   try {
+    if (!req.file) {
+      return res.status(409).send({ message: "image required" });
+    }
     const userdata = new UserModel({
       name: req.body.name,
       email: req.body.email,
@@ -90,22 +94,25 @@ const updateuserbyid = async (req, res) => {
   //console.log(req.body);
   //console.log(req.file);
   //console.log(req.body,req.file);
-  const updateddata = new UserModel({
+  const updateddata = {
     name: req.body.name,
     email: req.body.email,
     number: req.body.number,
     password: req.body.password,
     image: req.file.filename,
-  });
+  };
   //console.log(updateddata);
+
   try {
-    const updatedata = await UserModel.updateOne({ _id: id }, updateddata, {
-      new: true,
-    });
+    const updatedata = await UserModel.findByIdAndUpdate(
+      { _id: id },
+      updateddata,
+      { new: true }
+    );
     console.log(updatedata);
     res.status(200).send({ message: "user has been updated.." });
   } catch (error) {
-    res.status(400).json({ message: error });
+    res.status(400).json({ message: error.message });
   }
 };
 
